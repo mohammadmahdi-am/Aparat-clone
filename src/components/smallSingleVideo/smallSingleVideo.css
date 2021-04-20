@@ -1,0 +1,9 @@
+#videoThumbnail {
+    border-radius: 5px;
+    height: 150px;
+    margin: auto;
+  }
+.video-link-title{
+    text-decoration: none;
+    color: black;
+} 

@@ -1,0 +1,17 @@
+#advertisment{
+    width: 100%;
+    
+    display: block;
+    border-radius: 10px;
+}
+.advertisment-container{
+    width: 90%;
+    margin: auto;
+
+}
+#closebtnadver{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    color: white;
+}
