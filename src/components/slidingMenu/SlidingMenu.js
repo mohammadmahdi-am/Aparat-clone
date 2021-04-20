@@ -1,5 +1,6 @@
 import React, { useContext, useEffect,useState } from "react";
 import { MenuContext } from "react-flexible-sliding-menu";
+import {Link, BrowserRouter as Router,Route} from 'react-router-dom'
 import './slidingMenu.css'
 
 function Menu() {
@@ -21,6 +22,7 @@ function Menu() {
   },[])
 
   return (
+    
     <div  id="div-menu" >
       <button onClick={closeMenu} id="closebtn" >
         <svg
@@ -38,8 +40,15 @@ function Menu() {
         {categories && (
           categories.map(category=>(
             <div>
+            
+              <Router>
+
+              <Link to={"/videosBycategory/"+category.name} target="_blank" rel="noopener noreferrer" >
               <img src={category.imgSrc} className="categoryImg" alt=""/>
               {category.name}
+              </Link>
+              </Router>
+            
             </div>
           ))
         )}

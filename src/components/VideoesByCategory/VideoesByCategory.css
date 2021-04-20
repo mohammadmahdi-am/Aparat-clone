@@ -1,0 +1,9 @@
+.category-banner{
+    height: 200px;
+}
+.category-title{
+    position: absolute;
+    top: 10px;
+    color: white;
+    right: 10px;
+}

@@ -6,6 +6,8 @@ import Advertisment from "./components/advertisment/Advertisment";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SingleVideoPage from "./components/singleVideoPage/SingleVideoPage";
 import UserProfile from "./components/userProfile/UserProfile";
+import VideoesByCategory from "./components/VideoesByCategory/VideoesByCategory";
+
 function App() {
   const [searchByName, setSearchByName] = useState("آپارات");
   const [videoResult, setVideoResult] = useState([]);
@@ -35,6 +37,13 @@ function App() {
           </Route>
           <Route path="/single/:uid" children={<SingleVideoPage />} />
           <Route path="/userProfile/:username" children={<UserProfile />} />
+          <Route path="/videosBycategory/:category" children={
+          <VideoesByCategory
+                        videoResult={videoResult}
+              setVideoResult={setVideoResult}
+              searchByName={searchByName}
+           /> }/>
+         
         </Switch>
       </div>
     </Router>
