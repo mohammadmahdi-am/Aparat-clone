@@ -3,11 +3,13 @@ import './VideoesByCategory.css'
 import { useParams } from "react-router-dom";
 import Pagination from '../pagination/Pagination';
 import SmallSingleVideo from '../smallSingleVideo/SmallSingleVideo'
+
 function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
     const {category} = useParams()
     const [aparatCategory, setAparatCategory] = useState(null)
     const [pageCount, setPageCount] = useState(10);
     const [perPage, setPerPage] = useState(36);
+
 
     useEffect(() => {
         fetch("https://www.aparat.com/etc/api/categories")

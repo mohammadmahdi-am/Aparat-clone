@@ -2,7 +2,7 @@ import React from 'react'
 import Tilt from "react-parallax-tilt";
 import './smallSingleVideo.css'
 import {  Link } from 'react-router-dom'
-function SmallSingleVideo({title,small_poster,uid}) {
+function SmallSingleVideo({title,small_poster,uid,edit,delete:Delete}) {
     return (
         <div className="col-md-2 col-6 mb-3">
     <Link to={"/single/"+uid} className="w-100 video-link-title">
@@ -22,6 +22,10 @@ function SmallSingleVideo({title,small_poster,uid}) {
                         />
                       {title}
                     </div>
+                    {(edit && Delete) ? (
+                                                <div className="d-flex"><button>حذف</button>
+                                                <button>ویرایش</button></div>
+                    ):null}
                   </Tilt>
                       </Link>
                 </div>

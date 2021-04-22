@@ -49,6 +49,14 @@
     outline: none;
     border:none
 }
+.logout{
+    border: 1px solid whitesmoke;
+    padding: 4px 16px;
+    border-radius: 15px;
+    background-color: rgba(236, 236, 236, 0.822);
+    outline: none;
+    border:none
+}
 
 .user-modal{
     position: fixed;
