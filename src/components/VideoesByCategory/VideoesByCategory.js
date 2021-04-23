@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Pagination from '../pagination/Pagination';
 import SmallSingleVideo from '../smallSingleVideo/SmallSingleVideo'
 
-function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
+function VideoesByCategory({ videoResult, setVideoResult, searchByName,setShowSpinner }) {
     const {category} = useParams()
     const [aparatCategory, setAparatCategory] = useState(null)
     const [pageCount, setPageCount] = useState(10);
@@ -12,6 +12,7 @@ function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
 
 
     useEffect(() => {
+      
         fetch("https://www.aparat.com/etc/api/categories")
         .then(res=>res.json())
         .then(data=>data.categories)
@@ -22,7 +23,7 @@ function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
             
         })
 
-
+        setShowSpinner(true)
         fetch(
             `https://www.aparat.com/etc/api/videoBySearch/text/${category}/perpage/36/curoffset/0`
           )
@@ -31,6 +32,7 @@ function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
             })
             .then((data) => {
               setVideoResult(data);
+              setShowSpinner(false)
             });
         
         
@@ -41,7 +43,7 @@ function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
         console.log('page:',selectedPage)
         const curoffset = selectedPage * perPage;
         
-      
+        setShowSpinner(true)
         receivedData(curoffset)
     
         
@@ -59,6 +61,7 @@ function VideoesByCategory({ videoResult, setVideoResult, searchByName }) {
           .then((data) => {
             console.log(data);
             setVideoResult(data);
+            setShowSpinner(false)
           });
       };
 

@@ -3,12 +3,13 @@ import "./videoSearchResult.css";
 import SmallSingleVideo from "../smallSingleVideo/SmallSingleVideo";
 import Pagination from "../pagination/Pagination";
 
-function VideoSearchResult({ videoResult, setVideoResult, searchByName }) {
+function VideoSearchResult({ videoResult, setVideoResult, searchByName,setShowSpinner }) {
   const [pageCount, setPageCount] = useState(10);
   const [perPage, setPerPage] = useState(36);
 
 
   useEffect(() => {
+    setShowSpinner(true)
     fetch(
       `https://www.aparat.com/etc/api/videoBySearch/text/آپارات/perpage/36/curoffset/0`
     )
@@ -17,12 +18,14 @@ function VideoSearchResult({ videoResult, setVideoResult, searchByName }) {
       })
       .then((data) => {
         setVideoResult(data);
+        setShowSpinner(false)
       });
   }, []);
 
 
 
   const handlePageClick = (e) => {
+    setShowSpinner(true)
     const selectedPage = e.selected + 1;
     console.log('page:',selectedPage)
     const curoffset = selectedPage * perPage;
@@ -33,6 +36,7 @@ function VideoSearchResult({ videoResult, setVideoResult, searchByName }) {
     
   };
   const receivedData = (curoffset) => {
+   
     console.log(curoffset - 36)
     fetch(
       `https://www.aparat.com/etc/api/videoBySearch/text/${searchByName}/perpage/36/curoffset/${
@@ -45,6 +49,7 @@ function VideoSearchResult({ videoResult, setVideoResult, searchByName }) {
       .then((data) => {
         console.log(data);
         setVideoResult(data);
+        setShowSpinner(false)
       });
   };
 

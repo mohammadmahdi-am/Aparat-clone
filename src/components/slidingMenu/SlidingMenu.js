@@ -1,30 +1,28 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MenuContext } from "react-flexible-sliding-menu";
-import {Link, BrowserRouter as Router,Route} from 'react-router-dom'
-import './slidingMenu.css'
+import { Link, BrowserRouter as Router, Route } from "react-router-dom";
+import "./slidingMenu.css";
 
 function Menu() {
   const { closeMenu } = useContext(MenuContext);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch("https://www.aparat.com/etc/api/categories")
-    .then(res=>res.json())
-    .then(data=>{
-      setCategories(data.categories)
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data.categories);
 
-      console.log(data)
-    }
-    )
-    document.getElementById("div-menu").parentElement && (
-    document.getElementById("div-menu").parentElement.style.overflow = 'auto')
-
-  },[])
+        console.log(data);
+      });
+    document.getElementById("div-menu").parentElement &&
+      (document.getElementById("div-menu").parentElement.style.overflow =
+        "auto");
+  }, []);
 
   return (
-    
-    <div  id="div-menu" >
-      <button onClick={closeMenu} id="closebtn" >
+    <div id="div-menu">
+      <button onClick={closeMenu} id="closebtn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -35,24 +33,34 @@ function Menu() {
           <path d="M0 0h24v24H0z" fill="none" />
         </svg>
       </button>
-      
-      <div className="slidingMenu-content">
-        {categories && (
-          categories.map(category=>(
-            <div>
-            
-              <Router>
 
-              <Link to={"/videosBycategory/"+category.name} target="_blank" rel="noopener noreferrer" >
-              <img src={category.imgSrc} className="categoryImg" alt=""/>
-              {category.name}
-              </Link>
-              </Router>
-            
-            </div>
-          ))
-        )}
-
+      <div className="slidingMenu-content px-2">
+        <h3 className="mt-3 text-danger">دسته بندی ها : </h3>
+        <Router>
+          {categories &&
+            categories.map((category) => (
+              <div>
+                <Link
+                  to={"/videosBycategory/" + category.name}
+                  className="sliding-menu-item"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={category.imgSrc} className="categoryImg" alt="" />
+                  {category.name}
+                </Link>
+              </div>
+            ))}
+          <h3 className="text-danger my-3">دیگر صفحات:</h3>
+          <Link
+            to={"/contactus"}
+            className="sliding-menu-item"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            تماس با ما
+          </Link>
+        </Router>
       </div>
     </div>
   );

@@ -13,3 +13,7 @@
 .categoryImg{
     width: 50px;
 }
+.sliding-menu-item{
+    text-decoration: none;
+    color: black;
+}

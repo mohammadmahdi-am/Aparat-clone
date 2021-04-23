@@ -4,22 +4,31 @@ import Pagination from "../pagination/Pagination";
 import SmallSingleVideo from "../smallSingleVideo/SmallSingleVideo";
 import "./userProfile.css";
 
-function UserProfile() {
+function UserProfile(props) {
   const { username } = useParams();
   const [profileInfo, setProfileInfo] = useState(null);
   const [videoByUser, setVideoByUser] = useState(null);
   const [perPage, setPerPage] = useState(30);
 
   useEffect(() => {
+    props.setShowSpinner(true)
     fetch(`https://www.aparat.com/etc/api/profile/username/${username}`)
       .then((res) => res.json())
-      .then((data) => setProfileInfo(data.profile));
+      .then((data) => {
+        
+         setProfileInfo(data.profile)
+      });
 
     fetch(
       `https://www.aparat.com/etc/api/videoByUser/username/${username}/perpage/30/curoffset/0`
     )
       .then((res) => res.json())
-      .then((data) => setVideoByUser(data.videobyuser));
+      .then((data) => {
+        
+        setVideoByUser(data.videobyuser)
+        props.setShowSpinner(false)
+      
+      });
   }, []);
 
   const handlePageClick = (e) => {
@@ -30,7 +39,7 @@ function UserProfile() {
   };
   const receivedData = (curoffset) => {
     console.log(curoffset - 30);
-
+    props.setShowSpinner(true)
     fetch(
       `https://www.aparat.com/etc/api/videoByUser/username/${username}/perpage/30/curoffset/${
         curoffset - 30
@@ -39,7 +48,9 @@ function UserProfile() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.videobyuser);
-        return setVideoByUser(data.videobyuser);
+
+         setVideoByUser(data.videobyuser);
+         props.setShowSpinner(false)
       });
   };
 

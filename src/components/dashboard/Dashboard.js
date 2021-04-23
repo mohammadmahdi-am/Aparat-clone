@@ -6,6 +6,7 @@ function Dashboard() {
   const [following, setFollowing] = useState(0);
   const [channelName, setChannelName] = useState("");
   const [videoByUser, setVideoByUser] = useState([]);
+  const [profilePicture, setProfilePicture] = useState([]);
   const userName = JSON.parse(localStorage.getItem("username"));
   useEffect(() => {
     fetch(`https://www.aparat.com/etc/api/profile/username/${userName}`)
@@ -15,6 +16,7 @@ function Dashboard() {
         setFollower(data.profile.follower_cnt);
         setFollowing(data.profile.followed_cnt);
         setChannelName(data.profile.name);
+        setProfilePicture(data.profile.pic_m)
       });
 
     fetch(
@@ -29,9 +31,9 @@ function Dashboard() {
         <div className="row">
           <div className="col-2">
             <div className="border">
-              <img src="" alt="" />
+              <img src={profilePicture} alt="" className="d-block  rounded-circle w-50"/>
               <span>نام کاربری:</span>
-              {localStorage.getItem("username")}
+              {userName}
             </div>
           </div>
 
@@ -59,14 +61,14 @@ function Dashboard() {
                   <span>ویدیو های من</span>
                   <div>
                       <div className="row">
-                      {videoByUser.map(video=>{
+                      {videoByUser? videoByUser.map(video=>{
                           return(
                          
                           <SmallSingleVideo title={video.title} small_poster={video.small_poster} uid={video.uid} edit={true} delete={true}/>
 
                          
                           )
-                      })}
+                      }) : <p>ویدیویی جهت نمایش وجود ندارد</p>}
                       </div>
                   </div>
                 </div>

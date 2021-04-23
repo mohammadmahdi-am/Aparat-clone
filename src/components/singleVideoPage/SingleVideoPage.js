@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams,Link } from "react-router-dom";
-function SingleVideoPage() {
+function SingleVideoPage(props) {
   let { uid } = useParams();
   const [singleVideoData, setSingleVideoData] = useState(null);
 
   useEffect(() => {
+    props.setShowSpinner(true)
     console.log(uid);
     fetch(`https://www.aparat.com/etc/api/video/videohash/${uid}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        props.setShowSpinner(false)
         return setSingleVideoData(data);
       });
   }, []);
